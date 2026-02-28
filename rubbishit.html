@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rubbishit — The Journal of Rejected but Resilient Research</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #C8102E;
+    --dark-red: #8B0000;
+    --black: #0D0D0D;
+    --dark-gray: #1a1a1a;
+    --mid-gray: #4a4a4a;
+    --light-gray: #f4f2ee;
+    --border: #ddd8cc;
+    --cream: #FAF8F3;
+    --accent: #E8A020;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Source Serif 4', Georgia, serif;
+    background: var(--cream);
+    color: var(--black);
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  /* ===== TOP BAR ===== */
+  .top-bar {
+    background: var(--black);
+    color: white;
+    text-align: center;
+    padding: 7px 0;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    border-bottom: 2px solid var(--red);
+  }
+  .top-bar span { color: var(--accent); }
+
+  /* ===== HEADER ===== */
+  header {
+    border-bottom: 3px solid var(--black);
+    background: var(--cream);
+  }
+
+  .header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .nav-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: 0.05em;
+    color: var(--mid-gray);
+  }
+
+  .nav-top a { color: var(--mid-gray); text-decoration: none; margin: 0 8px; }
+  .nav-top a:hover { color: var(--red); }
+
+  .header-logo {
+    display: flex;
+    align-items: flex-end;
+    gap: 20px;
+    padding: 18px 0 14px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 72px;
+    font-weight: 900;
+    line-height: 1;
+    color: var(--red);
+    letter-spacing: -2px;
+    text-transform: none;
+    font-style: italic;
+  }
+
+  .logo-subtitle {
+    font-family: 'Source Serif 4', serif;
+    font-size: 12px;
+    color: var(--mid-gray);
+    font-style: italic;
+    padding-bottom: 8px;
+    max-width: 300px;
+    line-height: 1.4;
+  }
+
+  .logo-badge {
+    margin-left: auto;
+    text-align: right;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--mid-gray);
+    line-height: 1.8;
+    padding-bottom: 8px;
+  }
+
+  .logo-badge .impact {
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--red);
+    display: block;
+    line-height: 1;
+  }
+
+  .main-nav {
+    display: flex;
+    gap: 0;
+    padding: 0;
+  }
+
+  .main-nav a {
+    display: block;
+    padding: 10px 16px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--black);
+    text-decoration: none;
+    border-right: 1px solid var(--border);
+    transition: background 0.15s, color 0.15s;
+  }
+  .main-nav a:first-child { border-left: 1px solid var(--border); }
+  .main-nav a:hover { background: var(--black); color: white; }
+
+  .main-nav .submit-btn {
+    margin-left: auto;
+    background: var(--red);
+    color: white;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  .main-nav .submit-btn:hover { background: var(--dark-red); color: white; }
+
+  /* ===== MAIN LAYOUT ===== */
+  .content-wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px;
+  }
+
+  .issue-banner {
+    background: var(--black);
+    color: white;
+    padding: 10px 18px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 28px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+  }
+
+  .issue-banner .vol {
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  .issue-banner .tagline {
+    color: #aaa;
+    font-style: italic;
+    font-family: 'Source Serif 4', serif;
+    letter-spacing: 0;
+    font-size: 12px;
+    margin-left: auto;
+  }
+
+  .main-grid {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 36px;
+  }
+
+  /* ===== FEATURED ARTICLE ===== */
+  .featured {
+    border-bottom: 2px solid var(--black);
+    padding-bottom: 28px;
+    margin-bottom: 28px;
+  }
+
+  .section-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: white;
+    background: var(--red);
+    display: inline-block;
+    padding: 3px 8px;
+    margin-bottom: 12px;
+  }
+
+  .featured-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 28px;
+    align-items: start;
+  }
+
+  .featured h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 10px;
+    color: var(--black);
+  }
+
+  .featured h2 em {
+    color: var(--red);
+    font-style: italic;
+  }
+
+  .article-meta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--mid-gray);
+    letter-spacing: 0.05em;
+    margin-bottom: 10px;
+  }
+
+  .article-meta .authors {
+    color: var(--black);
+    font-weight: 500;
+  }
+
+  .abstract {
+    font-size: 13.5px;
+    color: var(--mid-gray);
+    line-height: 1.7;
+    font-style: italic;
+  }
+
+  .read-more {
+    display: inline-block;
+    margin-top: 14px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--red);
+    text-decoration: none;
+    border-bottom: 1px solid var(--red);
+    padding-bottom: 1px;
+  }
+
+  .featured-img {
+    background: linear-gradient(135deg, #e8e0d0 0%, #d4c8b0 100%);
+    height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--mid-gray);
+    border: 1px solid var(--border);
+    text-align: center;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .featured-img::before {
+    content: 'FIG. 1';
+    position: absolute;
+    top: 8px;
+    left: 10px;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    color: #aaa;
+  }
+
+  .fig-content {
+    font-size: 48px;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  /* ===== ARTICLES LIST ===== */
+  .articles-section h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--black);
+    margin-bottom: 18px;
+  }
+
+  .article-card {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: start;
+  }
+
+  .article-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: #bbb;
+    padding-top: 4px;
+    min-width: 24px;
+  }
+
+  .article-card h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 4px;
+    color: var(--black);
+  }
+
+  .article-card h4 a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .article-card h4 a:hover { color: var(--red); }
+
+  .article-type {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: white;
+    background: var(--mid-gray);
+    display: inline-block;
+    padding: 2px 6px;
+    margin-bottom: 6px;
+  }
+
+  .article-type.rejected { background: var(--red); }
+  .article-type.comedy { background: #2a6e44; }
+  .article-type.hot { background: var(--accent); color: var(--black); }
+
+  .article-snippet {
+    font-size: 12.5px;
+    color: var(--mid-gray);
+    line-height: 1.55;
+    font-style: italic;
+  }
+
+  .article-stats {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: #aaa;
+    margin-top: 6px;
+  }
+
+  .article-stats span { margin-right: 14px; }
+
+  /* ===== SIDEBAR ===== */
+  .sidebar {}
+
+  .sidebar-widget {
+    border: 1px solid var(--border);
+    margin-bottom: 24px;
+    background: white;
+  }
+
+  .widget-header {
+    background: var(--black);
+    color: white;
+    padding: 8px 14px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .widget-body { padding: 14px; }
+
+  .submit-cta {
+    background: var(--red);
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 14px;
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-style: italic;
+    cursor: pointer;
+    display: block;
+    text-align: center;
+    margin-bottom: 10px;
+    text-decoration: none;
+    transition: background 0.15s;
+  }
+  .submit-cta:hover { background: var(--dark-red); }
+
+  .submit-note {
+    font-size: 11px;
+    color: var(--mid-gray);
+    line-height: 1.5;
+    font-style: italic;
+  }
+
+  .top-viewed li {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 12.5px;
+    line-height: 1.4;
+    list-style: none;
+  }
+  .top-viewed li:last-child { border-bottom: none; padding-bottom: 0; }
+
+  .top-viewed .rank {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--red);
+    display: inline-block;
+    width: 18px;
+    font-weight: 500;
+  }
+
+  .reviewer-box {
+    background: #fff8e8;
+    border: 1px solid var(--accent);
+    padding: 12px;
+    font-size: 12px;
+    line-height: 1.55;
+    font-style: italic;
+    color: var(--mid-gray);
+    margin-bottom: 10px;
+  }
+
+  .reviewer-name {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--black);
+    font-style: normal;
+    font-weight: 500;
+    margin-top: 6px;
+    display: block;
+  }
+
+  .peer-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    text-align: center;
+  }
+
+  .peer-stat {
+    background: var(--light-gray);
+    padding: 10px;
+  }
+
+  .peer-stat .num {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--red);
+    display: block;
+    line-height: 1;
+  }
+
+  .peer-stat .label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    color: var(--mid-gray);
+    margin-top: 4px;
+    display: block;
+  }
+
+  /* ===== SUBMIT MODAL ===== */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-overlay.active { display: flex; }
+
+  .modal {
+    background: var(--cream);
+    width: 640px;
+    max-width: 95vw;
+    max-height: 90vh;
+    overflow-y: auto;
+    border-top: 4px solid var(--red);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+
+  .modal-header {
+    padding: 24px 28px 16px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .modal-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-style: italic;
+    line-height: 1.2;
+  }
+
+  .modal-header p {
+    font-size: 12.5px;
+    color: var(--mid-gray);
+    margin-top: 4px;
+    font-style: italic;
+  }
+
+  .modal-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--mid-gray);
+    line-height: 1;
+    padding: 0;
+  }
+
+  .modal-body { padding: 24px 28px; }
+
+  .form-group { margin-bottom: 18px; }
+
+  .form-group label {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--mid-gray);
+    margin-bottom: 6px;
+  }
+
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    width: 100%;
+    border: 1px solid var(--border);
+    background: white;
+    padding: 10px 12px;
+    font-family: 'Source Serif 4', serif;
+    font-size: 14px;
+    color: var(--black);
+    outline: none;
+    transition: border-color 0.15s;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus {
+    border-color: var(--red);
+  }
+
+  .form-group textarea { height: 100px; resize: vertical; }
+
+  .rejection-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 18px;
+  }
+
+  .badge {
+    border: 1px solid var(--border);
+    padding: 5px 10px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+  }
+
+  .badge.selected {
+    background: var(--red);
+    color: white;
+    border-color: var(--red);
+  }
+
+  .form-note {
+    font-size: 11.5px;
+    color: var(--mid-gray);
+    font-style: italic;
+    margin-bottom: 18px;
+    padding: 10px 14px;
+    background: #fff8e8;
+    border-left: 3px solid var(--accent);
+  }
+
+  .btn-submit {
+    background: var(--red);
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 14px;
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-style: italic;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .btn-submit:hover { background: var(--dark-red); }
+
+  .success-msg {
+    display: none;
+    text-align: center;
+    padding: 40px 28px;
+  }
+
+  .success-msg .emoji { font-size: 56px; margin-bottom: 16px; }
+
+  .success-msg h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-style: italic;
+    margin-bottom: 10px;
+  }
+
+  .success-msg p { color: var(--mid-gray); font-size: 14px; }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: var(--black);
+    color: #aaa;
+    padding: 40px 0 20px;
+    margin-top: 48px;
+    border-top: 4px solid var(--red);
+  }
+
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 36px;
+    margin-bottom: 32px;
+  }
+
+  .footer-brand .fn {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-style: italic;
+    font-weight: 900;
+    color: var(--red);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .footer-brand p {
+    font-size: 12px;
+    line-height: 1.6;
+    max-width: 240px;
+  }
+
+  .footer-col h5 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: white;
+    margin-bottom: 12px;
+  }
+
+  .footer-col a {
+    display: block;
+    color: #888;
+    text-decoration: none;
+    font-size: 12.5px;
+    margin-bottom: 7px;
+    transition: color 0.15s;
+  }
+
+  .footer-col a:hover { color: white; }
+
+  .footer-bottom {
+    border-top: 1px solid #333;
+    padding-top: 18px;
+    display: flex;
+    justify-content: space-between;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: #555;
+    letter-spacing: 0.04em;
+  }
+
+  .issn { color: #666; }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 900px) {
+    .main-grid { grid-template-columns: 1fr; }
+    .featured-grid { grid-template-columns: 1fr; }
+    .logo-title { font-size: 48px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 600px) {
+    .logo-title { font-size: 36px; }
+    .logo-badge { display: none; }
+    .main-nav a { padding: 8px 10px; font-size: 10px; }
+    .footer-grid { grid-template-columns: 1fr; }
+  }
+
+  /* Scroll fade in */
+  .article-card {
+    opacity: 0;
+    transform: translateY(12px);
+    animation: fadeUp 0.4s forwards;
+  }
+
+  .article-card:nth-child(1) { animation-delay: 0.05s; }
+  .article-card:nth-child(2) { animation-delay: 0.12s; }
+  .article-card:nth-child(3) { animation-delay: 0.19s; }
+  .article-card:nth-child(4) { animation-delay: 0.26s; }
+  .article-card:nth-child(5) { animation-delay: 0.33s; }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .ticker {
+    overflow: hidden;
+    white-space: nowrap;
+    flex: 1;
+  }
+
+  .ticker-content {
+    display: inline-block;
+    animation: ticker 40s linear infinite;
+  }
+
+  @keyframes ticker {
+    from { transform: translateX(100%); }
+    to { transform: translateX(-100%); }
+  }
+</style>
+</head>
+<body>
+
+<!-- Top bar -->
+<div class="top-bar">
+  🗑️ &nbsp; <span>RUBBISHIT</span> — Where Science Goes to Die... and Get a Second Chance &nbsp;|&nbsp; 
+  <span>Open Access</span> · Peer Reviewed by Someone · Est. 2024
+</div>
+
+<!-- Header -->
+<header>
+  <div class="header-inner">
+    <div class="nav-top">
+      <div>
+        <a href="#">Login</a>
+        <a href="#">Register</a>
+        <a href="#">My Submissions</a>
+        <a href="#">Peer Review Dashboard</a>
+      </div>
+      <div>
+        <a href="#">RSS Feed</a>
+        <a href="#">Newsletter</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+
+    <div class="header-logo">
+      <div>
+        <div class="logo-title">Rubbishit</div>
+        <div class="logo-subtitle">The Journal of Rejected but Resilient Research · Open Discussion · No Topic Too Absurd</div>
+      </div>
+      <div class="logo-badge">
+        <span class="impact">0.001</span>
+        IMPACT FACTOR<br>
+        2024 | THE LOWEST ON EARTH<br>
+        <span style="color:var(--accent)">✦ PROUDLY UNINDEXED</span>
+      </div>
+    </div>
+
+    <nav class="main-nav">
+      <a href="#">Home</a>
+      <a href="#">Current Issue</a>
+      <a href="#">Archive</a>
+      <a href="#">Topics</a>
+      <a href="#">Peer Review</a>
+      <a href="#">About</a>
+      <a href="#" class="submit-btn" onclick="openModal(); return false;">▶ Submit Your Rejected Paper</a>
+    </nav>
+  </div>
+</header>
+
+<!-- Main content -->
+<div class="content-wrap">
+
+  <div class="issue-banner">
+    <span class="vol">VOL. 1 · ISSUE 1 · FEB 2025</span>
+    <span style="color:#555; margin: 0 8px">|</span>
+    <div class="ticker">
+      <span class="ticker-content">
+        🔥 NEW: "Why My Grant Application Was Rejected (A Longitudinal Study)" · 
+        💀 "Statistical Significance of My Ex-Supervisor's Incompetence" ·
+        🧪 "The Role of Coffee in Experimental Data Fabrication: A Causal Analysis" ·
+        📄 "Can Large Language Models Pass Peer Review? Yes, But We Can't"
+      </span>
+    </div>
+    <span class="tagline">"If Nature won't have you, we will."</span>
+  </div>
+
+  <div class="main-grid">
+    <!-- Left column -->
+    <div>
+
+      <!-- Featured Article -->
+      <div class="featured">
+        <div class="section-label">Editor's Highlight</div>
+        <div class="featured-grid">
+          <div>
+            <h2>My Paper Was Rejected 11 Times — Here Are the <em>Peer Reviews</em></h2>
+            <div class="article-meta">
+              <span class="authors">Dr. Exhausted P. Nguyen, Prof. B. Broke, & Anonymous (Reviewer 3)</span><br>
+              Dept. of Existential Science, Univ. of Nowhere · Submitted after crying
+            </div>
+            <p class="abstract">
+              We present a comprehensive analysis of 11 sequential peer review rejections of a manuscript that three colleagues and one dog considered "genuinely groundbreaking." We identify a previously undescribed syndrome — Reviewer 3 Sadism (R3S) — characterized by contradictory demands, philosophical nihilism, and the phrase "lacks novelty." Our findings suggest peer review may be a stochastic process indistinguishable from rolling dice.
+            </p>
+            <a href="#" class="read-more">Read Full Article →</a>
+          </div>
+          <div class="featured-img">
+            <div>
+              <div class="fig-content">📊😭</div>
+              <div>FIG. 1 — Rejection probability as a function of<br>how much you need the publication</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Article List -->
+      <div class="articles-section">
+        <h3>Latest Articles — This Week's Finest Rubbish</h3>
+
+        <div class="article-card">
+          <div class="article-num">1</div>
+          <div>
+            <div class="article-type rejected">Rejected ×9</div>
+            <h4><a href="#">Correlation Between Self-Citation Rate and Delusion of Grandeur: A Longitudinal Cohort Study of Academic Egos</a></h4>
+            <div class="article-meta">
+              <span class="authors">Miranda A. Selfworth et al.</span> · Dept. of Narcissism, Oxford (the one in Ohio)
+            </div>
+            <p class="article-snippet">Using a novel metric we term the "Dunning-Kruger Citation Index" (DKCI), we demonstrate a strong positive correlation (r = 0.97, p &lt; 0.001) between number of self-citations and perceived world-historical significance of one's own work. Rejected by Nature, Science, Cell, eLife, PLOS, arXiv (thrice), and LinkedIn.</p>
+            <div class="article-stats">
+              <span>👁 2,341 views</span>
+              <span>💬 87 comments</span>
+              <span>⭐ 4.8/5 peer rating</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="article-card">
+          <div class="article-num">2</div>
+          <div>
+            <div class="article-type hot">🔥 Trending</div>
+            <h4><a href="#">The Statistical Inevitability of P-Hacking: Why p=0.049 Is Always Achievable With Patience and Desperation</a></h4>
+            <div class="article-meta">
+              <span class="authors">Dr. F. Udgeddata, Dr. R. Oundmyresult</span> · Department of Convenient Statistics
+            </div>
+            <p class="article-snippet">We provide a rigorous mathematical proof that any null hypothesis can be rejected given sufficient subgroup analyses. We also show that the 5% significance threshold was invented on a Tuesday afternoon by someone who had skipped lunch. Contains 47 supplementary figures, 23 of which are "exploratory."</p>
+            <div class="article-stats">
+              <span>👁 18,902 views</span>
+              <span>💬 412 comments</span>
+              <span>⭐ 4.9/5 peer rating</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="article-card">
+          <div class="article-num">3</div>
+          <div>
+            <div class="article-type comedy">Open Discussion</div>
+            <h4><a href="#">Does My Hypothesis Exist? A Philosophical Inquiry into the Reproducibility of My Own Thought Experiments</a></h4>
+            <div class="article-meta">
+              <span class="authors">Prof. I.M. Confused, Someone in the Lab Who Asked to Be Removed From Author List</span>
+            </div>
+            <p class="article-snippet">We attempted to reproduce the intellectual contributions of this paper three times. On each occasion we reached different conclusions. We propose that scientific truth, much like our grant funding, may be fundamentally quantum in nature: it exists only when observed by a sympathetic reviewer.</p>
+            <div class="article-stats">
+              <span>👁 5,102 views</span>
+              <span>💬 203 comments</span>
+              <span>⭐ 4.5/5 peer rating</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="article-card">
+          <div class="article-num">4</div>
+          <div>
+            <div class="article-type rejected">Rejected ×4</div>
+            <h4><a href="#">My Postdoc Was Three Times as Long as My PhD: A Case Study in Academic Hazing and Sunk Cost Fallacy</a></h4>
+            <div class="article-meta">
+              <span class="authors">Dr. Still-A-Postdoc McStillAPostdoc</span> · Funding Status: Critical
+            </div>
+            <p class="article-snippet">We present autobiographical longitudinal data (n=1) documenting a 9-year postdoctoral trajectory. Our analysis reveals that the expected salary inflection point ("the real job") is a statistical artefact that shifts rightward as a function of publication count required by employers. We hypothesise it does not exist.</p>
+            <div class="article-stats">
+              <span>👁 34,118 views</span>
+              <span>💬 1,903 comments</span>
+              <span>⭐ 5.0/5 peer rating</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="article-card">
+          <div class="article-num">5</div>
+          <div>
+            <div class="article-type">Research Article</div>
+            <h4><a href="#">Optimizing Coffee Consumption for Maximal Grant-Writing Output: A Randomized, Double-Blind, Heavily Caffeinated Trial</a></h4>
+            <div class="article-meta">
+              <span class="authors">The Caffeine Research Collective (n=1 PI, 3 underpaid RAs)</span>
+            </div>
+            <p class="article-snippet">We demonstrate that grant writing quality peaks at 4.2 cups of coffee, after which it enters a chaotic regime characterized by excessive em-dashes, passive voice, and references to one's own unpublished data. We also find that the sixth cup induces a dangerous state of "writing without citations" that is clinically indistinguishable from brilliance.</p>
+            <div class="article-stats">
+              <span>👁 9,208 views</span>
+              <span>💬 377 comments</span>
+              <span>⭐ 4.7/5 peer rating</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+      <div class="sidebar-widget">
+        <div class="widget-header">📬 Submit Your Rejected Paper</div>
+        <div class="widget-body">
+          <a href="#" class="submit-cta" onclick="openModal(); return false;">Submit Now — It's Free</a>
+          <p class="submit-note">Got a rejection letter? Great — that's your acceptance criteria. We welcome all research that dared to dream, was told no, and refuses to go quietly into the good night.</p>
+        </div>
+      </div>
+
+      <div class="sidebar-widget">
+        <div class="widget-header">📈 Journal Statistics</div>
+        <div class="widget-body">
+          <div class="peer-stats">
+            <div class="peer-stat">
+              <span class="num">2,417</span>
+              <span class="label">Papers Submitted</span>
+            </div>
+            <div class="peer-stat">
+              <span class="num">100%</span>
+              <span class="label">Acceptance Rate</span>
+            </div>
+            <div class="peer-stat">
+              <span class="num">3 days</span>
+              <span class="label">Avg Review Time</span>
+            </div>
+            <div class="peer-stat">
+              <span class="num">0.001</span>
+              <span class="label">Impact Factor</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-widget">
+        <div class="widget-header">🔥 Most Read This Week</div>
+        <div class="widget-body">
+          <ul class="top-viewed">
+            <li><span class="rank">1.</span> "Does My Supervisor Know What They're Doing? A Bayesian Analysis"</li>
+            <li><span class="rank">2.</span> "Six Sigma Methods Applied to Avoiding Lab Meetings"</li>
+            <li><span class="rank">3.</span> "My n=3 Is Definitely Enough: A Defense"</li>
+            <li><span class="rank">4.</span> "Why I Listed My Cat as Third Author"</li>
+            <li><span class="rank">5.</span> "The Null Result That Changed Everything (In My Head)"</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="sidebar-widget">
+        <div class="widget-header">💬 Latest Peer Review</div>
+        <div class="widget-body">
+          <div class="reviewer-box">
+            "This paper is either the most important work I have read this decade or complete nonsense. I genuinely cannot tell. I recommend major revisions consisting of rewriting from scratch in a different discipline."
+            <span class="reviewer-name">— Reviewer 3, Anonymous, Apparently a Fan of Chaos</span>
+          </div>
+          <p style="font-size:11px; color:var(--mid-gray); font-style:italic;">Rubbishit uses community peer review — anyone can review, everyone must be constructive (or at least funny).</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="fn">Rubbishit</div>
+        <p>The Journal of Rejected but Resilient Research. Open access. Open discussion. Open to literally anyone with a hypothesis and a grudge against their reviewers.</p>
+        <p style="margin-top:12px; color: #555; font-family: 'IBM Plex Mono', monospace; font-size:10px;">ISSN: RB-SHT-2024 (Unregistered)</p>
+      </div>
+      <div class="footer-col">
+        <h5>For Authors</h5>
+        <a href="#">Submit a Paper</a>
+        <a href="#">Author Guidelines</a>
+        <a href="#">Peer Review Policy</a>
+        <a href="#">Open Access</a>
+        <a href="#">Ethics (Loosely Defined)</a>
+      </div>
+      <div class="footer-col">
+        <h5>Browse</h5>
+        <a href="#">Current Issue</a>
+        <a href="#">Archive</a>
+        <a href="#">Topics</a>
+        <a href="#">Most Rejected</a>
+        <a href="#">Hall of Fame</a>
+      </div>
+      <div class="footer-col">
+        <h5>About</h5>
+        <a href="#">Mission Statement</a>
+        <a href="#">Editorial Board</a>
+        <a href="#">Why We Exist</a>
+        <a href="#">Contact Us</a>
+        <a href="#">Advertise (Don't)</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Rubbishit Journal. All Rights Reserved (But We Mean It Loosely).</span>
+      <span class="issn">Disclaimer: For catharsis and entertainment. Please continue doing real science.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Submit Modal -->
+<div class="modal-overlay" id="modal" onclick="handleOverlayClick(event)">
+  <div class="modal">
+    <div id="form-section">
+      <div class="modal-header">
+        <div>
+          <h2>Submit Your Rejected Paper</h2>
+          <p>Finally — a venue that understands you. All submissions are open for community peer discussion.</p>
+        </div>
+        <button class="modal-close" onclick="closeModal()">✕</button>
+      </div>
+      <div class="modal-body">
+
+        <div class="form-note">
+          🎉 Our acceptance rate is 100%. Your paper will be reviewed by the community within days. Please be honest about your rejection history — we wear it as a badge of honor here.
+        </div>
+
+        <div class="form-group">
+          <label>Paper Title *</label>
+          <input type="text" placeholder="Give it the title it deserves">
+        </div>
+
+        <div class="form-group">
+          <label>Authors *</label>
+          <input type="text" placeholder="All authors, including the ones who contributed nothing">
+        </div>
+
+        <div class="form-group">
+          <label>Abstract * (max 300 words, we won't check)</label>
+          <textarea placeholder="Tell us what your paper is about. Be honest. We can handle it."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Where Was It Rejected? (select all that apply)</label>
+          <div class="rejection-badges">
+            <div class="badge" onclick="toggleBadge(this)">Nature</div>
+            <div class="badge" onclick="toggleBadge(this)">Science</div>
+            <div class="badge" onclick="toggleBadge(this)">Cell</div>
+            <div class="badge" onclick="toggleBadge(this)">eLife</div>
+            <div class="badge" onclick="toggleBadge(this)">PLOS ONE</div>
+            <div class="badge" onclick="toggleBadge(this)">NEJM</div>
+            <div class="badge" onclick="toggleBadge(this)">Lancet</div>
+            <div class="badge" onclick="toggleBadge(this)">arXiv</div>
+            <div class="badge" onclick="toggleBadge(this)">JAMA</div>
+            <div class="badge" onclick="toggleBadge(this)">A Local Newsletter</div>
+            <div class="badge" onclick="toggleBadge(this)">My Own Blog</div>
+            <div class="badge" onclick="toggleBadge(this)">Reddit</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Number of Rejections</label>
+          <select>
+            <option>1 (First timer — welcome)</option>
+            <option>2–3 (You're getting started)</option>
+            <option>4–6 (True grit)</option>
+            <option>7–10 (A veteran)</option>
+            <option>10+ (A legend)</option>
+            <option>I lost count (Hall of Fame material)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Reviewer 3's Most Absurd Comment (optional but encouraged)</label>
+          <textarea placeholder='"This paper fails to cite the entire body of literature, including my own unpublished thesis from 1987..."' style="height:80px"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Upload Paper (PDF)</label>
+          <input type="file" accept=".pdf" style="padding: 8px;">
+        </div>
+
+        <button class="btn-submit" onclick="submitPaper()">Submit to Rubbishit — We Believe In You 🚀</button>
+      </div>
+    </div>
+
+    <div class="success-msg" id="success-section">
+      <div class="emoji">🎉</div>
+      <h3>Your paper has been received!</h3>
+      <p>Welcome to <strong>Rubbishit</strong>. Your work will be open for community peer review within 24–72 hours.<br><br>
+      Remember: the best papers were rejected first. Or something like that.<br><br>
+      <em>— The Rubbishit Editorial Board</em></p>
+      <br>
+      <button onclick="closeModal()" style="background: var(--red); color:white; border:none; padding:12px 28px; font-family:'Playfair Display',serif; font-size:16px; font-style:italic; cursor:pointer;">Close & Continue Reading</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function openModal() {
+    document.getElementById('modal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+    document.getElementById('form-section').style.display = 'block';
+    document.getElementById('success-section').style.display = 'none';
+  }
+
+  function closeModal() {
+    document.getElementById('modal').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  function handleOverlayClick(e) {
+    if (e.target === document.getElementById('modal')) closeModal();
+  }
+
+  function toggleBadge(el) {
+    el.classList.toggle('selected');
+  }
+
+  function submitPaper() {
+    document.getElementById('form-section').style.display = 'none';
+    document.getElementById('success-section').style.display = 'block';
+  }
+</script>
+</body>
+</html>
